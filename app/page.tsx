@@ -1,5 +1,12 @@
 import Image from "next/image";
 
+/**
+ * Renders the centered landing page with Next.js and Vercel branding, introductory text, and action links.
+ *
+ * The component is purely presentational and adapts styling for light/dark themes and responsive layouts.
+ *
+ * @returns The JSX element representing the landing page.
+ */
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
