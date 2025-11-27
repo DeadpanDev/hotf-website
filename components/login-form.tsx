@@ -79,7 +79,7 @@ export function LoginForm({
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <a
-                    href="/"
+                    href="/forgot-password"
                     className="ml-auto text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
@@ -88,7 +88,7 @@ export function LoginForm({
                 <Input id="password" type="password" required name="password" />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit">Log in</Button>
                 <FieldDescription className="text-center">
                   Don&apos;t have an account? <a href="/signup">Sign up</a>
                 </FieldDescription>
@@ -98,8 +98,9 @@ export function LoginForm({
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="/">Terms of Service</a>{" "}
-        and <a href="/">Privacy Policy</a>.
+        By clicking login, you agree to our{" "}
+        <a href="/terms">Terms of Service</a> and{" "}
+        <a href="/privacy">Privacy Policy</a>.
       </FieldDescription>
     </div>
   );

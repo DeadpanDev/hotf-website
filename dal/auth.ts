@@ -10,6 +10,19 @@ export async function signUpAction(formData: FormData) {
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirm-password") as string;
 
+  if (!name || !email || !password || !confirmPassword) {
+    throw new Error("All fields are required");
+  }
+
+  if (
+    typeof name !== "string" ||
+    typeof email !== "string" ||
+    typeof password !== "string" ||
+    typeof confirmPassword !== "string"
+  ) {
+    throw new Error("Invalid form data");
+  }
+
   if (password !== confirmPassword) {
     throw new Error("Passwords do not match");
   }
