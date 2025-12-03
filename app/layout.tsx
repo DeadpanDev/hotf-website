@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Martian_Mono,
-  Schibsted_Grotesk,
-} from "next/font/google";
+import { Martian_Mono, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 

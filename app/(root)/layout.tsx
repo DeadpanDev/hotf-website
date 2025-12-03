@@ -1,9 +1,9 @@
-import { Navbar } from "@/components/navbar";
+import { NavbarMain } from "@/components/navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-screen flex flex-col">
-      <Navbar />
+    <div className="">
+      <NavbarMain />
       <main className="flex-1 w-full">{children}</main>
     </div>
   );

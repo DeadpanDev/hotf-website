@@ -1,121 +1,96 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
-import { ModeToggle } from "./ui/theme-btn";
-export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/tickets", label: "Tickets" },
+import {
+  MobileNav,
+  MobileNavHeader,
+  MobileNavMenu,
+  MobileNavToggle,
+  NavBody,
+  Navbar,
+  NavbarButton,
+  NavbarLogo,
+  NavItems,
+} from "./ui/resizable-navbar";
+import { ModeToggle } from "./ui/theme-btn";
+
+export function NavbarMain() {
+  const navItems = [
+    { name: "Home", link: "/" },
+    { name: "About", link: "/about" },
+    { name: "Tickets", link: "/tickets" },
   ];
 
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const closeMenu = () => setIsMenuOpen(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="flex flex-col md:flex-row justify-between gap-4 p-4 mt-2 mb-2 max-w-7xl mx-auto rounded-lg bg-card-primary dark:bg-card-primary shadow-[0_0_20px_rgba(0,0,0,0.3)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-      <div className="flex items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-lg md:text-xl lg:text-2xl font-bold"
-        >
-          <Image
-            src="/logo.jpg"
-            alt="Heart of the Forest"
-            width={32}
-            height={32}
-            className="rounded-md"
-          />
-          <span className="hidden sm:block">
-            Heart of the Forest Dramatic Society
-          </span>
-        </Link>
-        <div className="flex items-center gap-3 md:hidden">
-          <ModeToggle />
-          <button
-            type="button"
-            onClick={toggleMenu}
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMenuOpen}
-            className="rounded-md border border-border px-3 py-2 text-sm font-semibold hover:bg-primary/10 transition"
+    <div className="relative w-full">
+      <Navbar>
+        <NavBody>
+          <NavbarLogo />
+          <NavItems items={navItems} />
+          <div className="flex items-center gap-4">
+            <NavbarButton variant="primary" href="/login">
+              Login
+            </NavbarButton>
+            <NavbarButton variant="secondary" href="/signup">
+              Sign Up
+            </NavbarButton>
+            <NavbarButton className="p-0">
+              <ModeToggle />
+            </NavbarButton>
+          </div>
+        </NavBody>
+
+        <MobileNav>
+          <MobileNavHeader>
+            <NavbarLogo />
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </MobileNavHeader>
+
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
           >
-            {isMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-      </div>
-
-      <div className="hidden md:flex items-center justify-end gap-4">
-        <div className="flex items-center gap-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="hover:text-primary font-medium text-base transition"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-        <Separator orientation="vertical" className="h-6 dark:bg-white/30" />
-        <div className="flex items-center gap-3">
-          <Link href="/login" className="hover:text-primary">
-            <Button variant="default" className="hover:bg-primary/90">
-              Log in
-            </Button>
-          </Link>
-          <Link href="/signup" className="hover:text-primary">
-            <Button variant="outline" className="hover:bg-primary/90">
-              Sign up
-            </Button>
-          </Link>
-        </div>
-        <ModeToggle />
-      </div>
-
-      {isMenuOpen && (
-        <div className="flex flex-col gap-4 border-t border-border pt-4 md:hidden">
-          <div className="flex flex-col gap-2 text-base font-medium">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="hover:text-primary transition"
-                onClick={closeMenu}
+            {navItems.map((item, idx) => (
+              <a
+                href={item.link}
+                key={`mobile-link-${
+                  // biome-ignore lint/suspicious/noArrayIndexKey: intended for static nav items
+                  idx
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300"
               >
-                {link.label}
-              </Link>
+                <span className="block">{item.name}</span>
+              </a>
             ))}
-          </div>
-          <Separator className="dark:bg-white/30" />
-          <div className="flex flex-col gap-3">
-            <Link href="/login" className="hover:text-primary">
-              <Button
-                variant="default"
-                className="w-full hover:bg-primary/90"
-                onClick={closeMenu}
+
+            <div className="flex w-full flex-col gap-4">
+              <NavbarButton
+                variant="secondary"
+                href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full"
               >
-                Log in
-              </Button>
-            </Link>
-            <Link href="/signup" className="hover:text-primary">
-              <Button
-                variant="outline"
-                className="w-full hover:bg-primary/90"
-                onClick={closeMenu}
+                Login
+              </NavbarButton>
+              <NavbarButton
+                variant="primary"
+                href="/signup"
+                className="w-full"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                Sign up
-              </Button>
-            </Link>
-          </div>
-        </div>
-      )}
-    </nav>
+                Sign Up
+              </NavbarButton>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
+    </div>
   );
 }

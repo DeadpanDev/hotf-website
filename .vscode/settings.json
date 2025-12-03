@@ -1,5 +1,5 @@
 {
   "css.lint.unknownAtRules": "ignore",
-  "cSpell.words": ["cuid", "schibsted"],
+  "cSpell.words": ["cuid", "schibsted", "tabler"],
   "editor.formatOnSave": true
 }
